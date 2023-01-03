@@ -5,9 +5,9 @@
 resource "proxmox_vm_qemu" "your-vm" {
     
     # VM General Settings
-    target_node = "your-proxmox-node"
-    vmid = "100"
-    name = "vm-name"
+    target_node = "jarvis"
+    vmid = "500"
+    name = "kluster-0"
     desc = "Description"
 
     # VM Advanced General Settings

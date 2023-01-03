@@ -27,10 +27,10 @@ source "proxmox" "ubuntu-server-jammy" {
     # insecure_skip_tls_verify = true
     
     # VM General Settings
-    node = "your-proxmox-node"
-    vm_id = "100"
-    vm_name = "ubuntu-server-jammy"
-    template_description = "Ubuntu Server jammy Image"
+    node = "jarvis"
+    vm_id = "9000"
+    vm_name = "ubuntu-server-jammy-docker"
+    template_description = "Ubuntu Server Jammy Image"
 
     # VM OS Settings
     # (Option 1) Local ISO File
@@ -46,13 +46,13 @@ source "proxmox" "ubuntu-server-jammy" {
     qemu_agent = true
 
     # VM Hard Disk Settings
-    scsi_controller = "virtio-scsi-pci"
+    scsi_controller = "virtio-scsi-single"
 
     disks {
         disk_size = "20G"
         format = "qcow2"
-        storage_pool = "local-lvm"
-        storage_pool_type = "lvm"
+        storage_pool = "vmdata"
+        storage_pool_type = "zfs"
         type = "virtio"
     }
 
@@ -65,13 +65,13 @@ source "proxmox" "ubuntu-server-jammy" {
     # VM Network Settings
     network_adapters {
         model = "virtio"
-        bridge = "vmbr0"
+        bridge = "vmbr1"
         firewall = "false"
     } 
 
     # VM Cloud-Init Settings
     cloud_init = true
-    cloud_init_storage_pool = "local-lvm"
+    cloud_init_storage_pool = "vmdata"
 
     # PACKER Boot Commands
     boot_command = [
@@ -92,13 +92,13 @@ source "proxmox" "ubuntu-server-jammy" {
     # http_port_min = 8802
     # http_port_max = 8802
 
-    ssh_username = "your-user-name"
+    ssh_username = "alistair"
 
     # (Option 1) Add your Password here
-    # ssh_password = "your-password"
+    ssh_password = "mmhhh2Dd"
     # - or -
     # (Option 2) Add your Private SSH KEY file here
-    # ssh_private_key_file = "~/.ssh/id_rsa"
+    ssh_private_key_file = "~/.ssh/id_ed25519"
 
     # Raise the timeout, when installation takes longer
     ssh_timeout = "20m"
@@ -139,7 +139,7 @@ build {
     # Provisioning the VM Template with Docker Installation #4
     provisioner "shell" {
         inline = [
-            "sudo apt-get install -y ca-certificates curl gnupg lsb-release",
+            "sudo apt-get install -y ca-certificates curl gnupg lsb-release open-iscsi nfs-common",
             "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
             "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
             "sudo apt-get -y update",

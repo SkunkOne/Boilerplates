@@ -27,8 +27,8 @@ source "proxmox" "ubuntu-server-jammy" {
     # insecure_skip_tls_verify = true
     
     # VM General Settings
-    node = "your-proxmox-node"
-    vm_id = "100"
+    node = "jarvis"
+    vm_id = "9001"
     vm_name = "ubuntu-server-jammy"
     template_description = "Ubuntu Server jammy Image"
 
@@ -37,8 +37,8 @@ source "proxmox" "ubuntu-server-jammy" {
     # iso_file = "local:iso/ubuntu-22.04-live-server-amd64.iso"
     # - or -
     # (Option 2) Download ISO
-    # iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04-live-server-amd64.iso"
-    # iso_checksum = "84aeaf7823c8c61baa0ae862d0a06b03409394800000b3235854a6b38eb4856f"
+    iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04-live-server-amd64.iso"
+    iso_checksum = "84aeaf7823c8c61baa0ae862d0a06b03409394800000b3235854a6b38eb4856f"
     iso_storage_pool = "local"
     unmount_iso = true
 
@@ -49,10 +49,10 @@ source "proxmox" "ubuntu-server-jammy" {
     scsi_controller = "virtio-scsi-pci"
 
     disks {
-        disk_size = "20G"
+        disk_size = "16G"
         format = "qcow2"
-        storage_pool = "local-lvm"
-        storage_pool_type = "lvm"
+        storage_pool = "vmdata"
+        storage_pool_type = "zfs"
         type = "virtio"
     }
 
@@ -71,7 +71,7 @@ source "proxmox" "ubuntu-server-jammy" {
 
     # VM Cloud-Init Settings
     cloud_init = true
-    cloud_init_storage_pool = "local-lvm"
+    cloud_init_storage_pool = "vmdata"
 
     # PACKER Boot Commands
     boot_command = [
@@ -92,13 +92,13 @@ source "proxmox" "ubuntu-server-jammy" {
     # http_port_min = 8802
     # http_port_max = 8802
 
-    ssh_username = "your-user-name"
+    ssh_username = "alistair"
 
     # (Option 1) Add your Password here
-    # ssh_password = "your-password"
+    ssh_password = "mmhhh2Dd"
     # - or -
     # (Option 2) Add your Private SSH KEY file here
-    # ssh_private_key_file = "~/.ssh/id_rsa"
+    ssh_private_key_file = "~/.ssh/id_ed25519"
 
     # Raise the timeout, when installation takes longer
     ssh_timeout = "20m"

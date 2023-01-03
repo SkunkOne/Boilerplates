@@ -3,7 +3,7 @@ autoinstall:
   version: 1
   locale: en_US
   keyboard:
-    layout: de
+    layout: us
   ssh:
     install-server: true
     allow-pw: true
@@ -13,21 +13,24 @@ autoinstall:
   packages:
     - qemu-guest-agent
     - sudo
+    - nfs-common
+    - open-iscsi
   storage:
     layout:
       name: direct
     swap:
       size: 0
   user-data:
-    package_upgrade: false
-    timezone: Europe/Berlin
+    package_upgrade: true
+    timezone: Africa/Johannesburg
     users:
-      - name: your-user-name
-        groups: [adm, sudo]
+      - name: alistair
+        groups: [adm, sudo, root, users, video, render]
         lock-passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
-        # passwd: your-password
+        passwd: mmhhh2Dd
         # - or -
-        # ssh_authorized_keys:
-        #   - your-ssh-key
+        ssh_authorized_keys:
+           - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIDJ1GvLi+hhLLqQROwpj9DOXLxB5VfAC4x77LzWztaE alistair@Alistair-MBP.home.io
+

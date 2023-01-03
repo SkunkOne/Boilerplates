@@ -1,33 +1,48 @@
 #cloud-config
 autoinstall:
   version: 1
-  locale: en_US
+  locale: en_ZA
   keyboard:
-    layout: de
+    layout: us
   ssh:
     install-server: true
     allow-pw: true
-    disable_root: true
+    disable_root: false
     ssh_quiet_keygen: true
     allow_public_ssh_keys: true
   packages:
     - qemu-guest-agent
     - sudo
+    - nfs-common
+    - open-iscsi
+    - ethtool
+    - net-tools
+    - screen
+    - tmux
+    - apt-transport-https
+    - wget
+    - curl
+    - htop
+    - acl
+    - xattr
+    - git
   storage:
     layout:
       name: direct
     swap:
       size: 0
   user-data:
-    package_upgrade: false
-    timezone: Europe/Berlin
+    package_upgrade: true
+    timezone: Africa/Johannesburg
     users:
-      - name: your-user-name
-        groups: [adm, sudo]
+      - name: alistair
+        groups: [adm, sudo, root, users, video, render]
         lock-passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
-        # passwd: your-password
-        # - or -
-        # ssh_authorized_keys:
-        #   - your-ssh-key
+        passwd: mmhhh2Dd
+        ssh_authorized_keys:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCeG3z3s61ciTZhaM7H720MJxPhTrFlFmh5WDYbn0+CUcATARt9oixrNaWoPgq3AInjwSP/EhppRJh7YxuCp8jdkN1J/oDFDG+a0qHUGO6yjdj0UrxacnFTm3ELr9MGcNm21Ynj+8/w87HyBxVd2exAupX168v8SdAjtuvx5MVpl9bhgsXJX76uE0xp3L/TrtwvAJdTNf7xRdvKdLfvZuv/XhuqNPNb10SpFAgBGFFBV0n5uu0rLxz1WwxCuGQVdb+Mad3Hh81Rh+nG9tR5QIJUVZi7NRDpHsrqvZEjHRm9/0RPUatlebNPkqlAEGW/3CnjDuC8MGICb0KnBAUWcj9B3yiJ5ou+D/CsrJqwcX4HnkBXJpKDDU7SjDApa2hD/8QUBbJtyDf3g1sIaMvw40nXzLizZrV3UOFFuN6BKxl4GnnC6eZEeUFBnyLEi2ItgR+xo9OK8PKEjIGnvk5uGMVpaXSap2ZWmdwOqrF7XsdHu+g3fgOAF1nNW+ZRx2FIGAM=
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIDJ1GvLi+hhLLqQROwpj9DOXLxB5VfAC4x77LzWztaE
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCw50su00YPvkhJI/6dPdm4aHm7w0fV41XavRAVdnhYvC1VOWyyJDlPGArFW3qknv7muuVcyMqz+tHxmSA78jdMunnbBq9Rypk6tswrPopwOXX4zs5PYnPS3JVAlztfvfZTimCAB8lcv0a54FxoMFh/va58yJHZRdlsJVsPJdVKHWSS2tltgbTcxYEPeIeSQ2zZ7s9ItnbwJtNNpvPE1NYxdpXu8K0KaN0sO9p4YMTEdE5xxzXXoFO9W3tYnnwuqcZu+DZI4tocwdctU62rqncBWOvU2l+yjLjw5o/cAI4xvxku/vgwLyldBwSW+JCbKQMXMczaucbxRW1wV17fvt7mg9x8HEiHpAckc9XsWcLv/1SoWFbWaGX/ww2fzI6g9RqadzSzqU+1alWFsimfMFVY7ZaRx10uYJLssBHd5s+OSpW87927/IaK184GaVl0s43E9iTtzcj15bGd0y6uvw/53mu0owINneGW9/Utwh8Hljwum3TRTgwst+l0SJNe+Ps=
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfptJJqZbf0gJSYNWNRTZjX+Xwl9467Q+bz3UDrLhRb
